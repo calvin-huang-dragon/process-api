@@ -1,0 +1,1935 @@
+openapi: 3.0.1
+info:
+  title: Payment Service
+  description: MOBILE BANKING Connect PROCESS API - Payment service interface.  <br>
+  version: 1.0.0
+servers:
+- url: https://localhost:8080/api/v1
+paths:
+  /proxyId-amendment:
+    post:
+      tags:
+      - Proxy ID maintenance
+      summary: Perform an addressing amendment
+      operationId: amendmentPOST
+      requestBody:
+        description: Proxy ID Amendment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressingAmendmentRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt of the request and the result is returned immediately
+            in the HTTP response.  No further processing or callback will be submitted
+            to application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceResult'
+  /proxyId-cancellation:
+    post:
+      tags:
+      - Proxy ID maintenance
+      summary: Perform an proxy ID cancellation
+      operationId: cancellationPOST
+      requestBody:
+        description: Proxy ID Amendment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressingCancellationRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt of the request and the result is returned immediately
+            in the HTTP response.  No further processing or callback will be submitted
+            to application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceResult'
+  /proxyId-enquiry:
+    post:
+      tags:
+      - Proxy ID maintenance
+      summary: Perform an addressing enquiry
+      operationId: enquiryPOST
+      requestBody:
+        description: Addressing enquiry
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressingEnquiryRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt of the request and the result is returned immediately
+            in the HTTP response.  No further processing or callback will be submitted
+            to application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressingEnquiryResult'
+  /proxyId-registration:
+    post:
+      tags:
+      - Proxy ID maintenance
+      summary: Perform an addressing registration in asynchronous mode
+      operationId: addressingRegistrationUsingPOST
+      requestBody:
+        description: Addressing registration request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressingRegistrationRequest'
+        required: true
+      responses:
+        200:
+          description: 'Receipt of the request and the result is returned immediately
+            in the HTTP response.  No further processing or callback will be submitted
+            to application. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceResult'
+  /proxyId-registrationSummary:
+    post:
+      tags:
+      - Proxy ID maintenance
+      summary: Request for listing all the participants associated to the customers's
+        mobile phone number or email address, in synchronous mode
+      operationId: proxyIdRegistrationSummaryUsingPOST
+      requestBody:
+        description: Addressing registration summary request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressingRegistrationSummaryRequest'
+        required: true
+      responses:
+        200:
+          description: Addressing registration summary result.  Only synchronous mode
+            is supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressingRegistrationSummaryResult'
+  /creditor-edda-initiation:
+    post:
+      tags:
+      - eDDA Deposit
+      summary: Perform an eDDA initiation by a creditor in asynchronous mode
+      operationId: creditor-edda-initiationPOST
+      requestBody:
+        description: Creditor's eDDA initiation request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditorMandateInitiationRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt status of the creditor's eDDA initiation request. If accepted, the eDDA initiation result will be returned though callback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EddaResponse'
+  /edda-amendment:
+    post:
+      tags:
+      - eDDA Deposit
+      summary: ' Information that can be amended: Debtor''s name; Creditor''s name; Payment limit and periodicity;Expiry date; and Debtor''s reference'
+      operationId: edda-amendmentPOST
+      requestBody:
+        description: eDDA amendment request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MandateAmendmentRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt status of the eDDA amendment request. If accepted,
+            the eDDA amendment result will be returned though callback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EddaResponse'
+  /edda-cancellation:
+    post:
+      tags:
+      - eDDA Deposit
+      summary: Perform an eDDA cancellation in asynchronous mode
+      operationId: edda-cancellationPOST
+      requestBody:
+        description: Receipt status of the eDDA cancellation request. If accepted,
+          the eDDA cancellation result will be returned though callback
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MandateCancellationRequest'
+        required: true
+      responses:
+        200:
+          description: eDDA cancellation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EddaResponse'
+  /edda-suspension:
+    post:
+      tags:
+      - eDDA Deposit
+      summary: Perform an eDDA suspension in asynchronous mode
+      operationId: edda-suspensionPOST
+      requestBody:
+        description: eDDA suspension request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MandateSuspensionRequest'
+        required: true
+      responses:
+        200:
+          description: Receipt status of the eDDA suspension request. If accepted,
+            the eDDA suspension result will be returned though callback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EddaResponse'
+  /credit-transfer:
+    post:
+      tags:
+      - Payment
+      summary: Perform a credit transfer
+      operationId: creditTransferPOST
+      requestBody:
+        description: Credit transfer request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditTransferRequest'
+        required: true
+      responses:
+        200:
+          description: Payment result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResult'
+  /direct-debit:
+    post:
+      tags:
+      - Payment
+      summary: Perform a direct debit
+      operationId: directDebitPOST
+      requestBody:
+        description: Direct debit request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectDebitRequest'
+        required: true
+      responses:
+        200:
+          description: Payment result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResult'
+  /encode-emvQRCode:
+    post:
+      tags:
+        - Payment
+      summary: Generate a QR code for request to pay
+      operationId: encodeEmvQRCodePost
+      requestBody:
+        description: QR Code Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmvQrCodeData'
+        required: true
+      responses:
+        200:
+          description: Payment QR code result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmvQrCodeEncodeResult'
+  /decode-emvQRCode:
+    post:
+      tags:
+        - Payment
+      summary: Decode a QR code for request to pay
+      operationId: decodeEmvQRCodePost
+      requestBody:
+        description: QR Code Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmvQrCodeRaw'
+        required: true
+      responses:
+        200:
+          description: Payment QR code result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmvQrCodeDecodeResult'
+components:
+  schemas:
+    BaseResult:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          maxLength: 10
+          type: string
+    AcctVerificationDetail:
+      type: object
+      properties:
+        accountStatus:
+          type: string
+          enum:
+          - NOT_CHECKED
+          - MATCHED
+          - NOT_FOUND
+          - STATUS_ERROR
+        amountStatus:
+          type: string
+          enum:
+          - NOT_CHECKED
+          - ACCEPTED
+          - EXCEED_SYSTEM_THRESOLD
+          - EXCEED_AML
+        currencyStatus:
+          type: string
+          enum:
+          - NOT_CHECKED
+          - MATCHED
+          - UNMATCHED
+          - UNDETERMINED
+        nameStatus:
+          type: string
+          enum:
+          - NOT_CHECKED
+          - MATCHED
+          - UNMATCHED
+          - UNDETERMINED
+        overrideRequired:
+          type: boolean
+        proxyIdStatus:
+          type: string
+          enum:
+          - NOT_CHECKED
+          - MATCHED
+          - UNMATCHED
+          - UNDETERMINED
+    DirectDebitRequest:
+      required:
+      - businessService
+      - categoryPurpose
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - creditorAcctId
+      - debtorAcctId
+      - debtorAcctIdType
+      - debtorAgent
+      - settlementAmt
+      - settlementCurrency
+      type: object
+      properties:
+        businessService:
+          type: string
+          description: Business service code of FPS
+          enum:
+          - PAYD01
+        categoryPurpose:
+          maxLength: 6
+          type: string
+          description: Payment category purpose of FPS. Six characters code
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identifier, as assigned by the initiating client application
+            to unambiguously identify this request. ECFPS will use it as transaction
+            id and it should follow the transaction ID generation mechanism (UUID)
+            mentioned in the FPS specification
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            that submits the request. Callback (if any) will be configurable according
+            to it.
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request. For a bank's internal user, it should be
+            his/her user ID (e.g. BOA).  For a bank's customer, it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        creditorAcctId:
+          maxLength: 35
+          type: string
+          description: Creditor's bank account number
+        debtorAcctId:
+          maxLength: 34
+          type: string
+          description: Debtor's account identifier
+        debtorAcctIdType:
+          type: string
+          description: Debtor's account identifier type
+          enum:
+          - BBAN
+          - AIIN
+          - SVID
+          - EMAL
+          - MOBN
+          - CUST
+        debtorAgent:
+          maxLength: 3
+          type: string
+          description: Clearing code of the debtor agent (payer participant)
+        settlementAmt:
+          type: number
+          description: Interbank settlement amount. It is the amount of direct debit
+        settlementCurrency:
+          maxLength: 3
+          type: string
+          description: 'Currency of direct debit. Possible values are: HKD / CNY /
+            USD /EUR. The actual currencies supported may only be a sub-set of the
+            possible values'
+    PaymentResult:
+      allOf:
+      - $ref: '#/components/schemas/BaseResult'
+      - type: object
+        properties:
+          clientReqId:
+            maxLength: 35
+            type: string
+            description: clientReqId in the request
+          clientSysId:
+            maxLength: 35
+            type: string
+            description: clientSysId in the request
+          clientUsrId:
+            maxLength: 35
+            type: string
+            description: clientUsrId in the request
+          data:
+            type: object
+            properties:
+              targetAcctBranch:
+                maxLength: 3
+                type: string
+                description: Branch of the target accout no
+              statusReasonInfo:
+                type: array
+                description: Detailed information on the transaction status
+                items:
+                  type: string
+              creditorName:
+                maxLength: 140
+                type: string
+                description: Name of the creditor
+              recipientRealtime:
+                type: boolean
+                description: Whether the instructed party supports realtime when an
+                  outward instruction is sent to FPS
+              onus:
+                type: boolean
+                description: Whether it is an onus payment
+              exceptionHandlingStatus:
+                type: string
+                description: Reserved by ECFPS for internal use
+                enum:
+                - NONE
+                - PEDNING
+                - COMPLETED
+              endToEndId:
+                maxLength: 35
+                type: string
+              creditorBic:
+                maxLength: 11
+                type: string
+                description: Bussiness identifier code (BIC) if the creditor. Applicable
+                  only if the creditor is a corporate
+              type:
+                type: string
+                enum:
+                - CREDIT_TRANSFER
+                - DIRECT_DEBIT
+                - RETURN
+                - REFUND
+              realtimeOut:
+                type: boolean
+                description: Whether the request/reply is sent to FPS through the
+                  realtime channel
+              instructedCurrency:
+                maxLength: 3
+                type: string
+                description: Currecncy of the instructed amount in FPS message
+              debtorAcctId:
+                maxLength: 35
+                type: string
+                description: Debtor's account identifier
+              debtorBic:
+                maxLength: 11
+                type: string
+                description: Business identifier code (BIC) of the debtor agent (payer
+                  participant)
+              statusReason:
+                maxLength: 8
+                type: string
+                description: Reason of the status. Refer to the list of reject reason
+                  code
+              creditorAcctVrfDetail:
+                $ref: '#/components/schemas/AcctVerificationDetail'
+              originalFpsReferenceNo:
+                maxLength: 35
+                type: string
+              credit:
+                type: boolean
+                description: Whether the payment is a credit / debit entry
+              instructedAmt:
+                type: number
+                description: Instructed amount in FPS message
+              creditorAgent:
+                maxLength: 3
+                type: string
+                description: Clearing code of the creditor agent (payee participant)
+              balanceStatus:
+                type: string
+                description: Ledger transaction status
+                enum:
+                - UNPOSTED
+                - POSTED
+                - REVERSED
+                - ERROR
+                - SUBMITTING
+              settlementDate:
+                type: string
+                description: Settlement date
+                format: date
+              creditorAcctId:
+                maxLength: 35
+                type: string
+                description: Creditor's account identifier
+              transactionId:
+                maxLength: 35
+                type: string
+              targetAcctNoType:
+                type: string
+                description: 'Type of the target accout no, Possible values:                  BBAN
+                  - bank accout number, AIIN – Credit card number'
+                enum:
+                - BBAN
+                - AIIN
+              exceptionMsg:
+                maxLength: 40
+                type: string
+                description: Reserved by ECFPS for internal use
+              fpsReferenceNo:
+                maxLength: 35
+                type: string
+              settlementCurrency:
+                maxLength: 3
+                type: string
+                description: Currency of the interbank settlement amount
+              purposeInfo:
+                maxLength: 35
+                type: string
+                description: Purpose in proprietary form
+              instructionId:
+                maxLength: 35
+                type: string
+              debtorAgentBic:
+                maxLength: 11
+                type: string
+                description: Business identifier code (BIC) of the debtor agent (payer
+                  participant)
+              creditorContactEmail:
+                maxLength: 254
+                type: string
+                description: Email address of the creditor. Not related to addressing
+                  overlay services
+              targetAcctNo:
+                maxLength: 34
+                type: string
+                description: Target account no of this credit/debit entry
+              exceptionType:
+                type: string
+                description: Reserved by ECFPS for internal use
+                enum:
+                - NONE
+                - AWARE
+                - ALERT
+              settlementDatetime:
+                type: string
+                description: Date and time at which a payment was settled in the FPS.
+                  Provided only if the interbank settlement is completed
+                format: date-time
+              debtorAgent:
+                maxLength: 3
+                type: string
+                description: Clearing code of the debtor agent (payer participant)
+              creditorCustId:
+                maxLength: 35
+                type: string
+                description: Creditor's customer ID resolved from addressing service
+              purpose:
+                maxLength: 4
+                type: string
+                description: Underlying reason for the payment transaction. Four characters
+                  code. Refer to ISO20022 External Code Sets [6]. Note that the FPS
+                  does not validate the value of Payment Purpose specified in the
+                  payment request messages
+              returnReasonInfo:
+                type: array
+                description: Additional information that returning participant or
+                  payer can provide
+                items:
+                  maxLength: 105
+                  type: string
+              acctVerificationOption:
+                type: string
+                description: Account verification option. Applicable to credit transfer
+                  only
+                enum:
+                - SKIP_PYE_VRF
+                - PERFORM_PYE_VRF
+                - IMD_STTL
+              debtorCustId:
+                maxLength: 35
+                type: string
+                description: Debtor's customer ID resolved from addressing service
+              debtorContactMobile:
+                maxLength: 35
+                type: string
+                description: Mobile phone number of the debtor. Not related to addressing
+                  overlay services
+              clearingCode:
+                maxLength: 3
+                type: string
+                description: Bank's clearing code
+              debtorAcctIdType:
+                type: string
+                description: Debtor's account identifier type
+                enum:
+                - BBAN
+                - AIIN
+                - SVID
+                - EMAL
+                - MOBN
+                - CUST
+              returnReason:
+                type: string
+                description: Reason for the return or refund
+                enum:
+                - INCORRECT_ACCOUNT_NUMBER
+                - CLOSED_ACCOUNT_NUMBER
+                - WRONG_AMOUNT
+                - INCONSISTENT_WITH_END_CUSTOMER
+                - INCORRECT_CURRENCY
+                - REFUND_REQUEST_BY_END_CUSTOMER
+                - TIMEOUT_OR_AFTER_PROCESSING_CUT_OFF_TIME
+                - OTHERS
+              creditorAcctVrfStatus:
+                type: string
+                description: Creditor account verification status. Applicable to credit
+                  transfer only
+                enum:
+                - SKIPPED
+                - PENDING
+                - UNDETERMINED
+                - MATCHED
+                - UNMATCHED
+                - REJECTED
+              creditorCorporate:
+                type: boolean
+                description: Whether the creditor is a corporate
+              creditorContactMobile:
+                maxLength: 35
+                type: string
+                description: Mobile phone number of the creditor. Not related to addressing
+                  overlay services
+              outward:
+                type: boolean
+                description: Whether this is an outward payment
+              creditorAcctIdType:
+                type: string
+                description: Creditor's account identifier type
+                enum:
+                - BBAN
+                - AIIN
+                - SVID
+                - EMAL
+                - MOBN
+                - CUST
+              businessService:
+                type: string
+                description: Bussiness service code of FPS
+                enum:
+                - PAYC01
+                - PAYC02
+                - PAYC03
+                - PAYD01
+                - PAYR01
+                - PAYNTF
+              charge:
+                type: number
+              transactionStatus:
+                type: string
+                description: 'Transaction status. Possible values: ACSC - AcceptedSettlementCompleted,
+                  RJCT - Rejected, ACSP - AcceptedSettlementInProcess, ACCP - AcceptedCustomerProfile,
+                  PDNG - Pending'
+                enum:
+                - CNCL
+                - ACSC
+                - ACSP
+                - ACCP
+                - RJCT
+                - PDNG
+              debtorName:
+                maxLength: 140
+                type: string
+                description: Name of the debtor
+              settlementAmt:
+                type: number
+                description: Interbank settlement amount
+              creationDatetime:
+                type: string
+                description: Date and time when the payment is created
+                format: date-time
+              categoryPurpose:
+                maxLength: 6
+                type: string
+                description: Payment category purpose of FPS
+              debtorCorporate:
+                type: boolean
+                description: Whether the debtor is a corporate
+              balanceReference:
+                maxLength: 35
+                type: string
+                description: Ledger transaction reference
+              chargeReference:
+                maxLength: 35
+                type: string
+              creditorAgentBic:
+                maxLength: 11
+                type: string
+                description: Business identifier code (BIC) of the creditor agent
+                  (payee participant)
+              remittanceInfo:
+                maxLength: 140
+                type: string
+                description: Remittance information from payer, supplied to enable
+                  the matching/reconciliation of an entry with the items that the
+                  payment is intended to settle, such as commercial invoices in an
+                  accounts' receivable system, in an unstructured form. Participant
+                  can use this field to carry the 'Particulars' value migrated from
+                  Bulk Clearing Autocredit
+              debtorContactEmail:
+                maxLength: 254
+                type: string
+                description: Email address of the debtor. Not related to addressing
+                  overlay services
+    CreditTransferRequest:
+      required:
+      - businessService
+      - categoryPurpose
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - creditorAcctId
+      - creditorAcctIdType
+      - creditorAgent
+      - debtorAcctId
+      - settlementAmt
+      - settlementCurrency
+      type: object
+      properties:
+        businessService:
+          maxLength: 6
+          type: string
+          description: Business service code of FPS
+          enum:
+          - PAYC01
+          - PAYC02
+          - PAYC03
+        categoryPurpose:
+          maxLength: 6
+          type: string
+          description: Payment category purpose of FPS. Six characters code
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identifier, as assigned by the initiating client application
+            to unambiguously identify this request. ECFPS will use it as transaction
+            id and it should follow the transaction ID generation mechanism (UUID)
+            mentioned in the FPS specification
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            that submits the request. Callback (if any) will be configurable according
+            to it.
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request. For a bank's internal user, it should be
+            his/her user ID (e.g. BOA).  For a bank's customer, it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        creditorAcctId:
+          maxLength: 34
+          type: string
+          description: Creditor's account identifier
+        creditorAcctIdType:
+          type: string
+          description: Creditor's account identifier type
+          enum:
+          - BBAN
+          - AIIN
+          - SVID
+          - EMAL
+          - MOBN
+          - CUST
+        creditorAgent:
+          maxLength: 3
+          type: string
+          description: Clearing code of the creditor agent (payee participant)
+        debtorAcctId:
+          maxLength: 35
+          type: string
+          description: Bank account number of the debtor
+        settlementAmt:
+          type: number
+          description: Interbank settlement amount. It is the amount of credit transfer
+        settlementCurrency:
+          maxLength: 3
+          type: string
+          description: Currency of credit transfer. Possible values are - HKD / CNY
+            / USD /EUR. The actual currencies supported may only be a sub-set of the
+            possible values
+    Occurrences:
+      required:
+      - recurrent
+      type: object
+      properties:
+        duration:
+          $ref: '#/components/schemas/OccurrencesDuration'
+        frequency:
+          $ref: '#/components/schemas/Frequency'
+        recurrent:
+          type: boolean
+          description: Indicate if this is a one-off mandate or recurrent mandate. One-off mandate is usually used in RTOP (request to pay)
+    MandateSuspensionRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - fromCreditor
+      - mandateId
+      - reason
+      type: object
+      properties:
+        clientReqId:
+          type: string
+          description: Unique identifier, as assigned by the initiating client application to unambiguously identify this edda mandate request. ECFPS will use it as mandate request id and it should follow the mandate request id format mentioned in the FPS specification
+          minLength: 1
+          maxLength: 35
+        clientSysId:
+          type: string
+          description: Unique identifier to unambiguously identify the client system that
+            submits the request. Callback (if any) will be configurable according to it.
+          minLength: 1
+          maxLength: 35
+        clientUsrId:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request. For a bank's internal user, it should be
+            his/her user ID (e.g. BOA).  For a bank's customer, it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        mandateId:
+          maxLength: 35
+          minLength: 4
+          type: string
+          description: The orginal mandate id
+        reason:
+          type: string
+          description: The suspension reason code.
+          enum:
+          - MANDATE_SUSPENDED
+          - MANDATE_EXPIRED
+          - MANDATE_DORMANT
+        fromCreditor:
+          type: boolean
+          description: Specified the suspension instruction is from the creditor or
+            the debtor
+      description: Information for eDDA suspension
+    CreditorMandateInitiationRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - creditorAcctId
+      - debtorAcctId
+      - debtorAcctIdType
+      - debtorAgent
+      - mandateId
+      - mandateType
+      - occurrences
+      - reason
+      - trackingIndicator
+      type: object
+      properties:
+        clientReqId:
+          type: string
+          description: Unique identifier, as assigned by the initiating client application to unambiguously identify this edda mandate request. ECFPS will use it as mandate request id and it should follow the mandate request id format mentioned in the FPS specification
+          minLength: 1
+          maxLength: 35
+        clientSysId:
+          type: string
+          description: Unique identifier to unambiguously identify the client system that
+            submits the request. Callback (if any) will be configurable according to it.
+          minLength: 1
+          maxLength: 35
+        clientUsrId:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        collectionAmt:
+          type: number
+          description: Fixed amount to be collected from the debtor's account. Either
+            Collection Amount or Maximum Amount should be provided
+        collectionAmtCcy:
+          type: string
+          description: Currency for the fixed amount. Either Collection currency or
+            Maximum currency should be provided. EUR, USD are reserved for future
+            use
+          enum:
+          - HKD
+          - CNY
+          - EUR
+          - USD
+        creditorAcctId:
+          type: string
+          description: The creditor's bank account number
+        creditorName:
+          type: string
+          description: Creditor's bank account name. Mandatory only if account validation
+            is specified to be skipped.
+        debtorName:
+          type: string
+          description: Name of the debtor (end customer). Mandatory if debtorAcctId
+            is NOT a proxy id or proxy resolution is specified to be skipped
+        debtorCorporate:
+          type: boolean
+          description: Whether the debtor is a corporate. Mandatory only if debtorAcctId
+            is a proxy id and proxy resolution is specified to be skipped
+          example: false
+        debtorCustId:
+          type: string
+          description: Debtor's customer ID resolved from addressing service. Mandatory
+            only if debtorAcctId is a proxy id and proxy resolution is specified to
+            be skipped
+        debtorIds:
+          maxItems: 3
+          type: array
+          description: Additional information that returning participant or payer
+            can provide
+          items:
+            $ref: '#/components/schemas/DebtorId'
+        debtorAcctId:
+          type: string
+          description: The customer's account number or addressing proxy identification
+        debtorAcctIdType:
+          type: string
+          description: The customer's account number or addressing proxy identification
+          enum:
+          - BBAN
+          - AIIN
+          - SVID
+          - EMAL
+          - MOBN
+          - CUST
+        debtorAgent:
+          type: string
+          description: Clearing code of the debtor's participant
+        mandateId:
+          maxLength: 35
+          minLength: 4
+          type: string
+          description: The  mandate id.  Generated according to HKICL's mandate format
+            - [Clearing Code]\[Others].  [Others] is specified by the bank.   e.g.
+            [Clearing Code]\[CustomerID]\[Debtor Reference]
+        maxAmt:
+          type: number
+          description: Maximum amount that may be collected from the debtor's account
+            per period. Either Collection Amount or Maximum Amount should be provided
+        maxAmtCcy:
+          type: string
+          description: Currency for the maximum amount. Either Collection currency
+            or Maximum currency should be provided. EUR, USD are reserved for future
+            use
+          enum:
+          - HKD
+          - CNY
+          - EUR
+          - USD
+        occurrences:
+          $ref: '#/components/schemas/Occurrences'
+        reason:
+          type: string
+          description: The mandate setup reason code
+          enum:
+          - NEW_EDDA
+          - REACTIVATE_SUSPENDED_OR_DORMANT_EDDA
+        trackingIndicator:
+          type: boolean
+          description: Specifies whether the direct debit instructions should be automatically
+            re-submitted periodically when bilaterally agreed
+          example: false
+        mandateType:
+          type: string
+          description: The type of the mandate
+          enum:
+          - UNCONFIRMED_ELECTRONIC_MANDATE
+          - CONFIRMED_ELECTRONIC_MANDATE
+          - PAPER_BASED_ELECTRONIC_MANDATE
+      description: Information for eDDA initiation
+    MandateAmendmentRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - fromCreditor
+      - mandateId
+      - reason
+      - trackingIndicator
+      type: object
+      properties:
+        clientReqId:
+          type: string
+          description: Unique identifier, as assigned by the initiating client application to unambiguously identify this edda mandate request. ECFPS will use it as mandate request id and it should follow the mandate request id format mentioned in the FPS specification
+          minLength: 1
+          maxLength: 35
+        clientSysId:
+          type: string
+          description: Unique identifier to unambiguously identify the client system that
+            submits the request. Callback (if any) will be configurable according to it.
+          minLength: 1
+          maxLength: 35
+        clientUsrId:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request. For a bank's internal user, it should be
+            his/her user ID (e.g. BOA).  For a bank's customer, it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        collectionAmt:
+          type: number
+          description: Fixed amount to be collected from the debtor's account. Either
+            Collection Amount or Maximum Amount should be provided. EUR, USD are reserved
+            for future use
+        collectionAmtCcy:
+          type: string
+          description: Currency for the fixed amount. Either Collection currency or
+            Maximum currency should be provided
+          enum:
+          - HKD
+          - CNY
+          - EUR
+          - USD
+        maxAmt:
+          type: number
+          description: Maximum amount to be collected from the debtor's account. Either
+            Collection Amount or Maximum Amount should be provided
+        maxAmtCcy:
+          type: string
+          description: Currency for the maximum amount. Either Collection currency
+            or Maximum currency should be provided. EUR, USD are reserved for future
+            use
+          enum:
+          - HKD
+          - CNY
+          - EUR
+          - USD
+        occurrences:
+          $ref: '#/components/schemas/Occurrences'
+        mandateId:
+          maxLength: 35
+          minLength: 4
+          type: string
+          description: The orginal mandate id
+        reason:
+          type: string
+          description: Reason for amendment
+          enum:
+          - REQUEST_BY_CUSTOMER
+          - REQUEST_BY_INITIATING_PARTY
+          - REQUEST_BY_INITIATING_PARTY_AND_CUSTOMER
+          - NOT_SPECIFIED_REASON_CUSTOMER_GENERATED
+          - NOT_SPECIFIED_REASON_AGENT_GENERATED
+          - NARRATIVE
+        additionalReasonInfo:
+          maxLength: 105
+          minLength: 0
+          type: string
+          description: Additional information for the amendment reason, mandatory
+            when reason is NARRATIVE
+        trackingIndicator:
+          type: boolean
+          description: Specifies whether the direct debit instructions should be automatically re-submitted periodically when bilaterally agreed
+          example: false
+        fromCreditor:
+          type: boolean
+          description: Specified the amendment instruction is from the creditor or
+            the debtor
+      description: Information for eDDA amendment
+    DebtorId:
+      required:
+      - id
+      - idType
+      type: object
+      properties:
+        id:
+          maxLength: 35
+          type: string
+          description: The debtor's ID number
+        idType:
+          type: string
+          description: The corresponding id type.
+          enum:
+          - BUSINESS_REGISTRATION
+          - CERT_OF_INCORPORATION
+          - PASSPORT_NUMBER
+          - HKID
+    OccurrencesDuration:
+      required:
+      - fromDate
+      type: object
+      properties:
+        fromDate:
+          type: string
+          description: Start date of the mandate
+          format: date
+        toDate:
+          type: string
+          description: The expiry date of the mandate
+          format: date
+      description: Length of time for which the mandate remains valid
+    Frequency:
+      required:
+      - countPerPeriod
+      - periodType
+      type: object
+      properties:
+        countPerPeriod:
+          type: number
+          description: Number of instructions to be created and processed during the
+            specified period
+        periodType:
+          type: string
+          description: Period for which the number of instructions are to be created
+            and processed, and the maximum amount to be debited (i.e. payment limit
+            periodicity).
+          enum:
+          - ANNUAL
+          - MONTHLY
+          - QUARTERLY
+          - SEMI_ANNUAL
+          - WEEKLY
+          - DAILY
+          - ADHOC
+          - INTRA_DAY
+          - FORTNIGHTLY
+    MandateCancellationRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - fromCreditor
+      - mandateId
+      - reason
+      type: object
+      properties:
+        clientReqId:
+          type: string
+          description: Unique identifier, as assigned by the initiating client application to unambiguously identify this edda mandate request. ECFPS will use it as mandate request id and it should follow the mandate request id format mentioned in the FPS specification
+          minLength: 1
+          maxLength: 35
+        clientSysId:
+          type: string
+          description: Unique identifier to unambiguously identify the client system that
+            submits the request. Callback (if any) will be configurable according to it.
+          minLength: 1
+          maxLength: 35
+        clientUsrId:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request. For a bank's internal user, it should be
+            his/her user ID (e.g. BOA).  For a bank's customer, it should be the customer
+            ID which can uniquiely identify an end user (e.g. online banking user
+            ID / customer ID) designated by the bank
+        mandateId:
+          maxLength: 35
+          minLength: 4
+          type: string
+          description: The orginal mandate id
+        reason:
+          type: string
+          description: Reason for cancellation
+          enum:
+          - REQUEST_BY_CUSTOMER
+          - REQUEST_BY_INITIATING_PARTY
+          - REQUEST_BY_INITIATING_PARTY_AND_CUSTOMER
+          - NOT_SPECIFIED_REASON_CUSTOMER_GENERATED
+          - NOT_SPECIFIED_REASON_AGENT_GENERATED
+          - NARRATIVE
+        additionalReasonInfo:
+          maxLength: 105
+          minLength: 0
+          type: string
+          description: Additional information for the amendment reason, mandatory
+            when reason is NARRATIVE
+        fromCreditor:
+          type: boolean
+          description: Specified the cancellation instruction is from the creditor
+            or the debtor
+      description: Information for eDDA cancellation
+    EddaResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResult'
+      - type: object
+        properties:
+          clientReqId:
+            maxLength: 35
+            type: string
+            description: Unique identification for the request instruction of the
+              request call
+          clientSysId:
+            maxLength: 35
+            type: string
+            description: The system ID of the request call
+          clientUsrId:
+            maxLength: 35
+            type: string
+            description: The request initiator's user ID of the request call
+    AddressingRegistrationSummaryResult:
+      allOf:
+      - $ref: '#/components/schemas/AbstractResult'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/AddressingRegistrationSummaryReport'
+    AddressingEnquiryResult:
+      allOf:
+      - $ref: '#/components/schemas/AbstractResult'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/AddressingEnquiryReport'
+    AddressingEnquiryRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - proxyIdType
+      - purpose
+      type: object
+      properties:
+        agent:
+          maxLength: 3
+          type: string
+          description: The designated participant code if specified by the payer.  If
+            not specified, default addressing record will be returned.
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+        purpose:
+          type: string
+          description: 'The purposes of the addressing record, possible values: PAYM'
+          enum:
+          - PAYM
+    AddressingAccountMapping:
+      type: object
+      properties:
+        accountNo:
+          maxLength: 34
+          type: string
+          description: The bank account number.
+        currency:
+          maxLength: 3
+          type: string
+          description: 'The currency possible values: HKD, CNY'
+    ReportAddressingRecord:
+      required:
+      - agent
+      - creationDateTime
+      - custNames
+      - defaultIndicator
+      - lastUpdateDateTime
+      - purpose
+      type: object
+      properties:
+        agent:
+          maxLength: 3
+          type: string
+          description: The clearing code of the corresponding addressing record
+        creationDateTime:
+          type: string
+          description: The creation date time of the addressing record
+          format: date-time
+        custNames:
+          type: array
+          description: The names of the corresponding customer
+          items:
+            $ref: '#/components/schemas/CustomerNames'
+        defaultIndicator:
+          type: boolean
+          description: Indicator for default proxy ID
+          example: false
+        lastUpdateDateTime:
+          type: string
+          description: The last update date time of the addressing record
+          format: date-time
+        purpose:
+          type: string
+          description: 'The purposes of the addressing record, possible values: PAYM'
+          enum:
+          - PAYM
+    AddressingRegistrationSummaryRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - proxyId
+      - proxyIdType
+      type: object
+      properties:
+        proxyId:
+          maxLength: 34
+          type: string
+          description: The proxy identification, could be email, mobile number or
+            fps ID
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+    AddressingRegistrationSummaryReport:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      type: object
+      properties:
+        addressingRecords:
+          type: array
+          description: The summary of the addressing records associated to the proxy
+            identification
+          items:
+            $ref: '#/components/schemas/ReportAddressingRecord'
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: The original addressing request identification
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+    MaintenanceResult:
+      allOf:
+      - $ref: '#/components/schemas/AbstractResult'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/AddressingMaintenanceReport'
+    CustomerNames:
+      required:
+      - displayedName
+      - lang
+      type: object
+      properties:
+        displayedName:
+          maxLength: 140
+          type: string
+          description: The displayed customer name
+        fullName:
+          maxLength: 140
+          type: string
+          description: The full customer name.  Mandatory for Proxy Id registrtaion,
+            amendment, cancellation and enquiry.  Not available for registration summary.
+        lang:
+          type: string
+          description: 'The language of the customer name, supported language: EN,
+            ZH'
+          enum:
+          - EN
+          - ZH
+    AddressingCancellationRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - proxyId
+      - proxyIdType
+      type: object
+      properties:
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+        proxyId:
+          maxLength: 34
+          type: string
+          description: The proxy identification, could be email, mobile number or
+            fps ID
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+    StatusDetail:
+      type: object
+      properties:
+        code:
+          type: string
+          description: '* G00003-database problem * G00004-parameter imperfect * G00006-unexpected
+            problem * G00009-api exception * A00001-missing proxy id * A00002-invalid
+            email address * A00003-invalid mobile number * A00004-invalid fps indentifier
+            * A00005-proxy registration record not found * A00006-invalid customer
+            * A00007-enquiry record not found * A00008-request record not found *
+            A00009-cannot retrieve report * A00010-proxy registration record already
+            exists'
+        desc:
+          maxLength: 40
+          type: string
+    AddressingEnquiryReport:
+      required:
+      - addressingRequestId
+      - agent
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - customerId
+      - customerNames
+      - customerType
+      type: object
+      properties:
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        addressingRequestId:
+          maxLength: 35
+          type: string
+          description: The original addressing request identification
+        agent:
+          maxLength: 35
+          type: string
+          description: The clearing code of the corresponding addressing record
+        customerId:
+          maxLength: 35
+          type: string
+          description: The customer ID that associate the corresponding customer
+        customerNames:
+          type: array
+          description: The names of the corresponding customer
+          items:
+            $ref: '#/components/schemas/CustomerNames'
+        customerType:
+          type: string
+          description: 'The customer type, valid type: CORP, PERS'
+          enum:
+          - PERS
+          - CORP
+        supportedOptions:
+          type: array
+          description: The additional option(s) that is supported by the customer,
+            possible values - EDDA, RTOP
+          items:
+            type: string
+            enum:
+            - EDDA
+            - RTOP
+        proxyId:
+          maxLength: 34
+          type: string
+          description: The proxy identification, could be email, mobile number or
+            fps ID
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+        accounts:
+          type: array
+          description: The account mapping for each supporting currency.  It is available
+            when agent code equal to the current bank code.
+          items:
+            $ref: '#/components/schemas/AddressingAccountMapping'
+    AddressingMaintenanceReport:
+      required:
+      - accepted
+      - addressingRequestId
+      - agent
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - proxyId
+      - proxyIdType
+      - statusType
+      type: object
+      properties:
+        agent:
+          maxLength: 3
+          type: string
+          description: The clearing code of the instructing bank
+        accepted:
+          type: boolean
+          description: Indicator for whether the corresponding request is accepted
+          example: false
+        addressingRequestId:
+          maxLength: 35
+          type: string
+          description: The original addressing request identification
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identifier, as assigned by the initiating client system
+            to unambiguously identify this payment
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            that submits the request. For inward payment, the value is FPS
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: Unique identifier to unambiguously identify the client system
+            user that submits the request
+        statusType:
+          type: string
+          enum:
+          - NWRG
+          - AMND
+          - CNCL
+          - ENQR
+          - RGSM
+          - ASUN
+        proxyId:
+          maxLength: 34
+          type: string
+          description: The proxy identification, could be email, mobile number or
+            fps ID
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+        rejectReason:
+          type: string
+          description: The reject reason code if the corresponding request is rejected
+          enum:
+          - ADRS0001
+          - ADRS0002
+          - ADRS0003
+          - ADRS0004
+          - ADRS0005
+          - ADRS0006
+          - ADRS0007
+          - ADRS0008
+          - ADRS0009
+          - ADRS0010
+          - ADRS0011
+      description: This report is available when this is a synchrnous call, or as
+        a call back of an asynchronous call
+    AddressingAmendmentRequest:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - customerId
+      - defaultIndicator
+      - fullCustNameEn
+      - proxyIdType
+      type: object
+      properties:
+        accounts:
+          type: array
+          description: The account mapping for each supporting currency
+          items:
+            $ref: '#/components/schemas/AddressingAccountMapping'
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+        customerId:
+          maxLength: 34
+          type: string
+          description: Identification as assigned by the payee participant that can
+            associate the corresponding customer
+        defaultIndicator:
+          type: boolean
+          description: Indicator for default proxy ID
+          example: false
+        fullCustNameEn:
+          maxLength: 140
+          type: string
+          description: The full customer name in English
+        proxyId:
+          type: string
+          description: 'The proxy identification, could be email, mobile number or fps ID. If proxy ID type is Email or Mobile, this data attribute is mandatory.
+            maxLength: 34'
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+    AbstractResult:
+      required:
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - status
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDetail'
+        status:
+          maxLength: 10
+          type: string
+          description: success/error to indicate the request result
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDetail'
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the request instruction of the request
+            call
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID of the request call
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID of the request call
+    AddressingRegistrationRequest:
+      required:
+      - accounts
+      - clientReqId
+      - clientSysId
+      - clientUsrId
+      - corpCust
+      - customerId
+      - defaultIndicator
+      - fullCustNameEn
+      - proxyIdType
+      type: object
+      properties:
+        accounts:
+          type: array
+          description: The account mapping for each supporting currency
+          items:
+            $ref: '#/components/schemas/AddressingAccountMapping'
+        clientReqId:
+          maxLength: 35
+          type: string
+          description: Unique identification for the instruction
+        clientSysId:
+          maxLength: 35
+          type: string
+          description: The system ID
+        clientUsrId:
+          maxLength: 35
+          type: string
+          description: The request initiator's user ID
+        corpCust:
+          type: boolean
+          description: Indicator for customer type, while true represents CORP and
+            false represents PERS
+          example: false
+        customerId:
+          maxLength: 34
+          type: string
+          description: Identification as assigned by the payee participant that can
+            associate the corresponding customer
+        defaultIndicator:
+          type: boolean
+          description: Indicator for default proxy ID
+          example: false
+        fullCustNameEn:
+          maxLength: 140
+          type: string
+          description: The full customer name in English
+        proxyIdType:
+          type: string
+          description: The proxy identification type, including EMAL, MOBN, SVID
+          enum:
+          - SVID
+          - EMAL
+          - MOBN
+    EmvQrCodeData:
+      required:
+        - poiMethod
+        - merchantCountryCode
+        - trxCurrency
+      type: object
+      properties:
+        poiMethod:
+          type: string
+          description: >-
+            either static QR code or dynamic QR code.  static QR is used in store
+            which QR code remain unchange.  While dynamic is used during online
+            payment, bill payment, delivery payment etc.
+          enum:
+            - STATIC
+            - DYNAMIC
+        presentMode:
+          type: string
+          description: >-
+            Present mode.  Only payee present mode or merchant present mode is
+            supported at this moment.  There is no need to provided the value, and it is assumed 'PAYEE' already.
+          enum:
+            - PAYEE
+            - MERCHANT
+        clearingCode:
+          type: string
+          description: >-
+            bank code of the payee / merchant.  If not provide, default bank code
+            will be used.  It is advised not to provide the clearing code and adopt system default clearing code, if bank has only one clearing code.
+          maxLength: 3
+        proxyFpsId:
+          type: string
+          description: FPS identifier as proxy ID.  Only one proxy ID should be specified.
+          maxLength: 34
+        proxyEmail:
+          type: string
+          description: Email as proxy identifier.  Only one proxy ID should be specified.
+          maxLength: 34
+        proxyMobile:
+          type: string
+          description: >-
+            Mobile number as proxy identifier.  Only one proxy ID should be
+            specified.
+          maxLength: 34
+        merchantTimeout:
+          type: string
+          description: >-
+            merchant timeout value, this is used for dynbamic QR code. If poiMethod is 'STATIC', it will be ignored.
+          format: date-time
+        merchantCategory:
+          type: string
+          description: >-
+            merchant category. Only used in merchant present mode. No use at this moment.
+          maxLength: 4
+        merchantCountryCode:
+          type: string
+          description: merchant category. only use in merchant present mode.
+          maxLength: 2
+        merchantName:
+          type: string
+          description: only use in merchant present mode.
+          maxLength: 25
+        merchantCity:
+          type: string
+          maxLength: 15
+        merchantPostal:
+          type: string
+          description: only use in merchant present mode.
+          maxLength: 10
+        merchantLangRef:
+          type: string
+          description: merchange language reference.  only use in merchant present mode.
+          maxLength: 2
+        merchantLangName:
+          type: string
+          description: >-
+            merchange name in the specified language.  only use in merchant
+            present mode.
+          maxLength: 25
+        merchantLangCity:
+          type: string
+          description: >-
+            merchange city in the specified language.  only use in merchant
+            present mode.
+          maxLength: 15
+        trxCurrency:
+          type: string
+          description: currency of the QR code
+          enum:
+            - HKD
+            - CNY
+            - USD
+            - EUR
+        trxAmt:
+          type: number
+          description: amount of the transfer.  This value, if provided, cannot be zero (0).
+          maxLength: 13
+        editableTrxAmtIndicator:
+          type: string
+          maxLength: 1
+          description:  Indicate the trxAmt is editable. Possible value is 'Y'/'N'. If the value is not present, it will be assumed as 'N'.  The value is only useful, if the data field 'trxAmt' is provided.
+        convenienceFeeFixed:
+          type: number
+          description: >-
+            Fixed Convenient Fee.   Only by fixed amount or percent is specified,
+            or not specify at all.
+          maxLength: 13
+        convenienceFeePercent:
+          type: number
+          description: >-
+            Convenient Fee in percentage. Only by fixed amount or percent is
+            specified, or not specify at all.
+          maxLength: 5
+        billNum:
+          type: string
+          description: >-
+            Either billNumber or reference label should be put in the same
+            payee-presented QR code, but not both.  This value will be carry as End-To-End ID in the FPS message
+          maxLength: 25
+        mobileNum:
+          type: string
+          maxLength: 25
+        storeLabel:
+          type: string
+          maxLength: 25
+        loyaltyNumber:
+          type: string
+          maxLength: 25
+        referenceLabel:
+          type: string
+          description: >-
+            Either billNumber or reference label should be put in the same
+            payee-presented QR code, but not both.  This value will be carry as End-To-End ID in the FPS message
+          maxLength: 25
+        customerLabel:
+          type: string
+          maxLength: 25
+        terminalLabel:
+          type: string
+          maxLength: 25
+        purpose:
+          type: string
+          maxLength: 25
+        additionalCousmerReq:
+          type: string
+          maxLength: 25
+    EmvQrCodeRaw:
+      type: object
+      properties:
+        rawData:
+          type: string
+          description: raw Emv QR code data
+          maxLength: 5000
+    EmvQrCodeDecodeResult:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseResult'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmvQrCodeData'
+    EmvQrCodeEncodeResult:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseResult'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmvQrCodeRaw'
